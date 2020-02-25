@@ -55,7 +55,7 @@ var players = [
     playerTen
 ]
 
-var round = 1;
+var round = 0;
 
 function earlyRound(){
     for(let i = 0; i < players.length; i++){
@@ -63,12 +63,12 @@ function earlyRound(){
     }
 
     players.sort(function(a,b) {return a.score - b.score;});
+    printInformation();
+    //let loserOne = players.shift();
+    //alert(loserOne.firstName + " had a low score of " + loserOne.score + ". They have been eliminated.")
 
-    let loserOne = players.shift();
-    alert(loserOne.firstName + " had a low score of " + loserOne.score + ". They have been eliminated.")
-
-    let loserTwo = players.shift();
-    alert(loserTwo.firstName + " had a low score of " + loserTwo.score + ". They have been eliminated.")
+    //let loserTwo = players.shift();
+    //alert(loserTwo.firstName + " had a low score of " + loserTwo.score + ". They have been eliminated.")
 }
 
 function midRound(){
@@ -77,10 +77,9 @@ function midRound(){
     }
 
     players.sort(function(a,b) {return a.score - b.score;});
-
-    let loserOne = players.shift();
-    alert(loserOne.firstName + " had a low score of " + loserOne.score + ". They have been eliminated.")
-    
+    printInformation();
+    //let loserOne = players.shift();
+    //alert(loserOne.firstName + " had a low score of " + loserOne.score + ". They have been eliminated.")
 }
 
 function finalRound(){
@@ -92,25 +91,36 @@ function finalRound(){
             case 4: players[i].score = rollD20();
         }
     }
-    let loserOne = players.shift();
-    alert(loserOne.firstName + " had a low score of " + loserOne.score + ". They have been eliminated.")
+    players.sort(function(a,b) {return a.score - b.score;});
+    printInformation();
+    //alert(loserOne.firstName + " had a low score of " + loserOne.score + ". They have been eliminated.")
 
-    let winner = players[0];
+    let winner = players[1];
     alert(winner.firstName + " wins!")
 }
 
 function runGame(){
     if(round <= 3){
         round ++;
+        if(round > 1) {
+            deleteTable();
+            removePlayer();
+            removePlayer();
+        }
         earlyRound();
     }
     else if(round > 3 && round < 6){
         round ++;
+        deleteTable();
+        removePlayer();
         midRound();
     }
     else{
         alert("Final Round!")
+        deleteTable();
         finalRound();
+        //removePlayer();
+        deleteTable();
         players = [
             playerOne,
             playerTwo,
@@ -123,7 +133,7 @@ function runGame(){
             playerNine,
             playerTen
         ]
-        round = 1;
+        round = 0;
     }
 }
 
@@ -153,4 +163,26 @@ function rollD20(){
 
 function rollAllDice(){
     return rollD4() + rollD6() + rollD8() + rollD10();
+}
+
+function printInformation(){
+    
+    for(let i = 0; i < players.length; i++){
+        var tableBody = document.getElementById("tableData");
+        var row = tableBody.insertRow();
+        var cell1 = row.insertCell();
+        var cell2 = row.insertCell();
+        cell1.innerHTML = players[i].firstName;
+        cell2.innerHTML = players[i].score;
+    }
+}
+
+function deleteTable(){
+    for(let i = 0; i < players.length; i++){
+        document.getElementById("tableData").deleteRow(0);
+    }
+}
+
+function removePlayer(){
+    players.shift();
 }

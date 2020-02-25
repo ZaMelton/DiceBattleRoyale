@@ -4,13 +4,28 @@
 <head>
     <meta charset="utf-8">
     <title>Things</title>
-    <script src = "dice.js"></script>
+    <link rel="stylesheet" href="bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="bootstrap.css" type="text/css" >
+    <link rel="stylesheet" href="site.css" type="text/css" >
 </head>
 
     <body>
-        <script src = "dice.js"></script>
-        <div id = "scores"></div>
-        <button onclick="runGame()">Click</button>
+        <script src="dice.js"></script>
+
+        <table class="text-center table table-hover table-primary col-sm-8" id="players">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Score</th>
+                </tr>
+            </thead>
+            <tbody id="tableData">
+            </tbody>
+        </table>
+
+        <div class="container text-center">
+            <button class="btn btn-primary text-center col-sm-2" onclick="runGame()">Click</button>
+        </div>
     </body>
 
 </html>
