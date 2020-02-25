@@ -37,12 +37,11 @@ var playerNine = {
     score: 0
 }
 var playerTen = {
-    firstName: "Paul",
+    firstName: "Dejan",
     score: 0
 }
 
-var players = []
-
+var players = [];
 var players = [
     playerOne,
     playerTwo,
@@ -56,18 +55,76 @@ var players = [
     playerTen
 ]
 
-function standardRound(){
+var round = 1;
 
+function earlyRound(){
     for(let i = 0; i < players.length; i++){
         players[i].score = rollAllDice();
     }
 
     players.sort(function(a,b) {return a.score - b.score;});
-    
+
     let loserOne = players.shift();
     alert(loserOne.firstName + " had a low score of " + loserOne.score + ". They have been eliminated.")
+
     let loserTwo = players.shift();
     alert(loserTwo.firstName + " had a low score of " + loserTwo.score + ". They have been eliminated.")
+}
+
+function midRound(){
+    for(let i = 0; i < players.length; i++){
+        players[i].score = rollAllDice();
+    }
+
+    players.sort(function(a,b) {return a.score - b.score;});
+
+    let loserOne = players.shift();
+    alert(loserOne.firstName + " had a low score of " + loserOne.score + ". They have been eliminated.")
+    
+}
+
+function finalRound(){
+    for(let i = 0; i < players.length; i++){
+        switch(rollD4()){
+            case 1: players[i].score = rollD20();
+            case 2: players[i].score = rollD20();
+            case 3: players[i].score = rollD20();
+            case 4: players[i].score = rollD20();
+        }
+    }
+    let loserOne = players.shift();
+    alert(loserOne.firstName + " had a low score of " + loserOne.score + ". They have been eliminated.")
+
+    let winner = players[0];
+    alert(winner.firstName + " wins!")
+}
+
+function runGame(){
+    if(round <= 3){
+        round ++;
+        earlyRound();
+    }
+    else if(round > 3 && round < 6){
+        round ++;
+        midRound();
+    }
+    else{
+        alert("Final Round!")
+        finalRound();
+        players = [
+            playerOne,
+            playerTwo,
+            playerThree,
+            playerFour,
+            playerFive,
+            playerSix,
+            playerSeven,
+            playerEight,
+            playerNine,
+            playerTen
+        ]
+        round = 1;
+    }
 }
 
 function rollD4(){
@@ -90,10 +147,10 @@ function rollD12(){
     return Math.floor((Math.random() * 12 + 1))
 }
 
-function rollAllDice(){
-    return rollD4() + rollD6() + rollD8() + rollD10();
-}
-
 function rollD20(){
     return Math.floor((Math.random() * 20 + 1))
+}
+
+function rollAllDice(){
+    return rollD4() + rollD6() + rollD8() + rollD10();
 }
