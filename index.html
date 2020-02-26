@@ -11,21 +11,26 @@
 
     <body>
         <script src="dice.js"></script>
-
-        <table class="text-center table table-hover table-primary col-sm-8" id="players">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Score</th>
-                </tr>
-            </thead>
-            <tbody id="tableData">
-            </tbody>
-        </table>
-
-        <div class="container text-center">
-            <button class="btn btn-primary text-center col-sm-2" onclick="runGame()">Click</button>
+        <div class="container text-center col-sm-8">
+            <h1>WELCOME TO THE THUNDERDOME</h1>
         </div>
+        <div class="container text-center">
+            <button class="btn btn-primary text-center col-sm-4" id="playButton" onclick="runGame()">Click To Play</button>
+        </div>
+        <hr/>
+        <div class="container text-center col-sm-8">
+            <img class="image-fluid" id="diceImage" src="dice.jpg"/>
+
+            <table class="text-center table table-hover table-success" id="winnerTable" ></table>
+
+            <table class="text-center table table-hover" id="players">
+                <thead class="table-primary" id="tableHead">
+                </thead>
+                <tbody class="table-light" id="tableData">
+                </tbody>
+            </table>
+        </div>
+
     </body>
 
 </html>
